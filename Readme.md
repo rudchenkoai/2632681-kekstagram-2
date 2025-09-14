@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Алёна Рудченко](https://up.htmlacademy.ru/javascript-individual/2/user/2632681).
-* Наставник: `Неизвестно`.
+* Наставник: [Мария Филиппова](https://up.htmlacademy.ru/javascript-individual/2/user/136678)`.
 
 ---
 
