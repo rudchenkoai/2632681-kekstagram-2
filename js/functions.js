@@ -1,26 +1,26 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-function checkLengthString (string, maxLength) {
-  return string.length <= maxLength;
-}
+const checkLengthString = (string, maxLength) => string.length <= maxLength;
 
-function checkPalindrome (string) {
-  normalString = (string.replaceAll(' ','')).toLowerCase();
-  reverseString = '';
+const checkPalindrome = (string) => {
+  const normalString = string.replaceAll(' ','').toLowerCase();
+  let reverseString = '';
   for (let i = normalString.length - 1; i >= 0 ; i--) {
     reverseString += normalString[i];
   }
   return normalString === reverseString;
-}
+};
 
 
-function extractNumbers (string) {
-  normalString = (string.toString()).replaceAll(' ','');
-  stringNumbers = '';
-  for (let i = 0; i <= (string.toString()).length ; i++) {
-    Number.isNaN(++normalString[i]) ? 'не число' : stringNumbers += normalString[i];
+const extractNumbers = (string) => {
+  const normalString = string.toString().replaceAll(' ','');
+  let stringNumbers = '';
+  for (let i = 0; i < string.toString().length ; i++) {
+    if (normalString[i] >= 0 && normalString[i] <= 9) {
+      stringNumbers += normalString[i];
+    }
   }
   return parseInt(stringNumbers, 10);
-}
+};
 
+checkLengthString ('дом мод',5);
+checkPalindrome ('дом мод');
+extractNumbers ('2 счастливых гуся и 11 гусынь');
