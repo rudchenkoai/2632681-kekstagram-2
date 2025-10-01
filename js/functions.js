@@ -13,7 +13,7 @@ const checkPalindrome = (string) => {
 const extractNumbers = (string) => {
   const normalString = string.toString().replaceAll(' ','');
   let stringNumbers = '';
-  for (let i = 0; i < string.toString().length ; i++) {
+  for (let i = 0; i < normalString.toString().length ; i++) {
     if (normalString[i] >= 0 && normalString[i] <= 9) {
       stringNumbers += normalString[i];
     }
