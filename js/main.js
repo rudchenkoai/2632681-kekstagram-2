@@ -68,7 +68,23 @@ const DESCRIPTIONS = [
   'Когда хозяин заходит в хлев с ножом, козлу не до любви'
 ];
 
-const NUMBEROFPOST = 25;
+const NUMBER_OF_POST = 25;
+
+const AVATAR_NUMBER = {
+  MIN: 1,
+  MAX: 6,
+};
+
+const LIKES_QUANTITY = {
+  MIN: 15,
+  MAX: 200,
+};
+
+const COMMENTS_QUANTITY = {
+  MIN: 1,
+  MAX: 30,
+};
+
 
 const getRandomPositiveInteger = (a,b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -90,20 +106,20 @@ const generateId = createIdGenerator();
 
 const createComment = () => ({
   id: generateId(),
-  avatar: `img/avatar-${ getRandomPositiveInteger(1,6) }.svg`,
+  avatar: `img/avatar-${ getRandomPositiveInteger(AVATAR_NUMBER.MIN,AVATAR_NUMBER.MAX) }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
-
-const createPost = () => ({
-  id: generateId(),
-  url: `photos/${ getRandomPositiveInteger(1,25) }.jpg`,
+const createPost = (_,index) => ({
+  id: index + 1,
+  url: `photos/${ index + 1 }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomPositiveInteger(15,200),
-  comments: Array.from({length: getRandomPositiveInteger(1,30)}, createComment),
+  likes: getRandomPositiveInteger(LIKES_QUANTITY.MIN,LIKES_QUANTITY.MAX),
+  comments: Array.from({length: getRandomPositiveInteger(COMMENTS_QUANTITY.MIN,COMMENTS_QUANTITY.MAX)}, createComment),
 });
 
-const Posts = () => Array.from({length: NUMBEROFPOST}, createPost);
 
-Posts();
+const createPosts = () => Array.from({ length: NUMBER_OF_POST }, (element, index) => createPost(element, index));
+
+createPosts();
