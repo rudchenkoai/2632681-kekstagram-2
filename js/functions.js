@@ -33,10 +33,15 @@ const checkLengthMeeting = (startWorkingTime, endtWorkingTime, startMeetingTime,
 
   const endWorkingMinutes = Number((endtWorkingTime.split(':'))[0] * hourInMinutes) + Number((endtWorkingTime.split(':'))[1]);
 
-  const meetingMinutes = Number((startMeetingTime.split(':'))[0] * hourInMinutes) + Number((startMeetingTime.split(':'))[1]) + Number(lengthMeetingMinutes);
+  const meetingStartMinutes = Number((startMeetingTime.split(':'))[0] * hourInMinutes) + Number((startMeetingTime.split(':'))[1]);
 
-  return (endWorkingMinutes - startWorkingMinutes) >= (meetingMinutes - startWorkingMinutes);
+  const lengthMeeting = Number(lengthMeetingMinutes);
 
+  if (startWorkingMinutes <= meetingStartMinutes) {
+    return (endWorkingMinutes - startWorkingMinutes) >= (meetingStartMinutes + lengthMeeting - startWorkingMinutes);
+  } else {
+    return false;
+  }
 };
 
 checkLengthMeeting ('08:00', '18:5', '16:33', '90');
