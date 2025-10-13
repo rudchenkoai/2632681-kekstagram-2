@@ -24,3 +24,19 @@ const extractNumbers = (string) => {
 checkLengthString ('дом мод',5);
 checkPalindrome ('дом мод');
 extractNumbers ('2 счастливых гуся и 11 гусынь');
+
+
+const checkLengthMeeting = (startWorkingTime, endtWorkingTime, startMeetingTime, lengthMeetingMinutes) => {
+  const hourInMinutes = 60;
+
+  const startWorkingMinutes = Number((startWorkingTime.split(':'))[0] * hourInMinutes) + Number((startWorkingTime.split(':'))[1]);
+
+  const endWorkingMinutes = Number((endtWorkingTime.split(':'))[0] * hourInMinutes) + Number((endtWorkingTime.split(':'))[1]);
+
+  const meetingMinutes = Number((startMeetingTime.split(':'))[0] * hourInMinutes) + Number((startMeetingTime.split(':'))[1]) + Number(lengthMeetingMinutes);
+
+  return (endWorkingMinutes - startWorkingMinutes) >= (meetingMinutes - startWorkingMinutes);
+
+};
+
+checkLengthMeeting ('08:00', '18:5', '16:33', '90');
