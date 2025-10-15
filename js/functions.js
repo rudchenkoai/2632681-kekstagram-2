@@ -1,3 +1,5 @@
+const HOUR_IN_MINUTES = 60;
+
 const checkLengthString = (string, maxLength) => string.length <= maxLength;
 
 const checkPalindrome = (string) => {
@@ -25,23 +27,18 @@ checkLengthString ('дом мод',5);
 checkPalindrome ('дом мод');
 extractNumbers ('2 счастливых гуся и 11 гусынь');
 
-
-const checkLengthMeeting = (startWorkingTime, endtWorkingTime, startMeetingTime, lengthMeetingMinutes) => {
-  const hourInMinutes = 60;
-
-  const startWorkingMinutes = Number((startWorkingTime.split(':'))[0] * hourInMinutes) + Number((startWorkingTime.split(':'))[1]);
-
-  const endWorkingMinutes = Number((endtWorkingTime.split(':'))[0] * hourInMinutes) + Number((endtWorkingTime.split(':'))[1]);
-
-  const meetingStartMinutes = Number((startMeetingTime.split(':'))[0] * hourInMinutes) + Number((startMeetingTime.split(':'))[1]);
-
-  const lengthMeeting = Number(lengthMeetingMinutes);
-
-  if (startWorkingMinutes <= meetingStartMinutes) {
-    return (endWorkingMinutes - startWorkingMinutes) >= (meetingStartMinutes + lengthMeeting - startWorkingMinutes);
-  } else {
-    return false;
-  }
+const moveTimeToMinutes = (time) => {
+  const timeArray = time.split(':').map(Number);
+  return timeArray[0] * HOUR_IN_MINUTES + timeArray[1];
 };
 
-checkLengthMeeting ('08:00', '18:5', '16:33', '90');
+const checkLengthMeeting = (startWorkingTime, endWorkingTime, startMeetingTime, lengthMeetingMinutes) => {
+  const meetingStartMinutes = moveTimeToMinutes(startMeetingTime);
+  const meetingEndMinutes = meetingStartMinutes + Number(lengthMeetingMinutes);
+  const startWorkingMinutes = moveTimeToMinutes(startWorkingTime);
+  const endWorkingMinutes = moveTimeToMinutes(endWorkingTime);
+
+  return startWorkingMinutes <= meetingStartMinutes && meetingEndMinutes <= endWorkingMinutes;
+};
+
+checkLengthMeeting ('06:31', '18:50', '17:33', '50');
