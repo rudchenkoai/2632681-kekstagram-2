@@ -107,4 +107,4 @@ const createPosts = () => Array.from({ length: NUMBER_OF_POST }, (element, index
 
 createPosts();
 
-
+export {createPosts};
