@@ -1,9 +1,10 @@
+const picturesBlock = document.querySelector('.pictures');
+const picturesTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
+
 const renderThumbnails = (picturesList) => {
 
-  const picturesBlock = document.querySelector('.pictures');
-  const picturesTemplate = document.querySelector('#picture')
-    .content
-    .querySelector('.picture');
   const picturesListFragment = document.createDocumentFragment();
 
   picturesList.forEach(({url, description, likes, comments}) => {
