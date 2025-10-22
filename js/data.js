@@ -105,6 +105,4 @@ const createPost = (_,index) => ({
 
 const createPosts = () => Array.from({ length: NUMBER_OF_POST }, (element, index) => createPost(element, index));
 
-createPosts();
-
 export {createPosts};
