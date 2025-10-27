@@ -19,6 +19,7 @@ const renderThumbnails = (picturesList) => {
   });
 
   picturesBlock.appendChild(picturesListFragment);
+  return picturesBlock;
 
 };
 
