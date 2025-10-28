@@ -1,27 +1,46 @@
-import {openFullSizePicture} from './control-full-size-picture.js';
+
+import {renderComments} from './render-comments-list.js';
+import {isEscapeKey} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img');
-const bigPictureImgSetting = bigPictureImg.querySelector('img');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const bigPictureSocial = bigPicture.querySelector('.big-picture__social');
 const bigPictureSocialCaption = bigPictureSocial.querySelector('.social__caption');
 const bigPictureLikesCount = bigPictureSocial.querySelector('.likes-count');
+const bigPictureCancelButton = document.querySelector('.big-picture__cancel');
 
-
-const addThumbnailClickHandler = function (thumbnail, post, renderComments) {
-  thumbnail.addEventListener('click', () => {
-    openFullSizePicture();
-
-    bigPictureImgSetting.src = thumbnail.src;
-    bigPictureImgSetting.alt = thumbnail.alt;
-    bigPictureSocialCaption.textContent = post.description;
-    bigPictureLikesCount.textContent = post.likes;
-
-    const commentsArray = post.comments;
-
-    renderComments(commentsArray);
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFullSizePicture();
   }
-  );
 };
 
-export {addThumbnailClickHandler};
+const renderFullSizePicture = (post) => {
+
+  bigPicture.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+
+  bigPictureImg .src = post.url;
+  bigPictureImg .alt = post.description;
+  bigPictureSocialCaption.textContent = post.description;
+  bigPictureLikesCount.textContent = post.likes;
+
+  const comments = post.comments;
+
+  renderComments(comments);
+
+  document.addEventListener('keydown', onDocumentKeydown);
+
+  bigPictureCancelButton.addEventListener('click', () => {
+    closeFullSizePicture();
+  });
+};
+
+function closeFullSizePicture () {
+  bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+}
+
+export {renderFullSizePicture};
