@@ -1,25 +1,54 @@
-const picturesBlock = document.querySelector('.pictures');
+import {renderFullSizePicture} from './render-full-size-image.js';
+
+const picturesList = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const renderThumbnails = (picturesList) => {
+const renderThumbnails = (pictures) => {
 
-  const picturesListFragment = document.createDocumentFragment();
+  const picturesFragment = document.createDocumentFragment();
 
-  picturesList.forEach(({url, description, likes, comments}) => {
-    const picturesElement = picturesTemplate.cloneNode(true);
-    const image = picturesElement.querySelector('.picture__img');
+  pictures.forEach((picture) => {
+    const {url, description, likes, comments} = picture;
+    const pictureElement = picturesTemplate.cloneNode(true);
+    const image = pictureElement.querySelector('.picture__img');
 
     image.src = url;
     image.alt = description;
-    picturesElement.querySelector('.picture__likes').textContent = likes;
-    picturesElement.querySelector('.picture__comments').textContent = comments.length;
-    picturesListFragment.appendChild(picturesElement);
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+
+    pictureElement.addEventListener('click', () => {
+      renderFullSizePicture(picture);
+    });
+
+
+    picturesFragment.appendChild(pictureElement);
   });
 
-  picturesBlock.appendChild(picturesListFragment);
-
+  picturesList.appendChild(picturesFragment);
 };
 
 export {renderThumbnails};
+
+/*
+const renderThumbnails = (pictures) => {
+  const fragment = document.createDocumentFragment();
+
+  pictures.forEach((picture) => {
+    const {url, description, likes, comments} = picture;
+    const pictureElement = pictureTemplate.cloneNode(true);
+    // заполняем данные
+
+    pictureElement.addEventListener('click', () => {
+      openFullSizePicture(picture); // передали данные
+    });
+
+    fragment.appendChild(picturesElement);
+  });
+
+  picturesBlock.appendChild(fragment);
+};
+
+*/
