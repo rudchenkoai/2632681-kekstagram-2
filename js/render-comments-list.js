@@ -5,32 +5,60 @@ const commentsBlock = document.querySelector('.social__comments');
 const commentShownCount = document.querySelector('.social__comment-shown-count');
 const commentTotalCount = document.querySelector('.social__comment-total-count');
 
-document.querySelector('.social__comment-count').classList.add('hidden');
-document.querySelector('.social__comments-loader').classList.add('hidden');
-
 const renderComments = (commentsList) => {
   commentsBlock.replaceChildren();
   const commentsListFragment = document.createDocumentFragment();
-  let counter = 0;
+  let allCommentsCounter = 0;
 
   commentsList.forEach(({avatar, name, message}) => {
 
     const commentsElement = commentsTemplate.cloneNode(true);
     const author = commentsElement.querySelector('.social__picture');
 
+    commentsElement.classList.add('hidden');
+
     author.src = avatar;
     author.alt = name;
     commentsElement.querySelector('.social__text').textContent = message;
 
     commentsListFragment.appendChild(commentsElement);
-    counter++;
+    allCommentsCounter++;
   });
 
   commentsBlock.appendChild(commentsListFragment);
-
-  commentShownCount.textContent = counter;
-  commentTotalCount.textContent = counter;
+  commentTotalCount.textContent = allCommentsCounter;
 
 };
 
-export {renderComments};
+const showComment = (commentCount) => {
+
+  for (let i = 0; i < commentCount; i++) {
+    commentsBlock.children[i].classList.remove('hidden');
+  }
+  commentShownCount.textContent = commentCount;
+};
+
+
+function showComments (commentsCount) {
+
+  if (commentsBlock.children.length >= 5) {
+    if (commentsCount < commentsBlock.children.length) {
+      showComment (commentsCount);
+
+    } else {
+      const lastElementCount = commentsCount - commentsBlock.children.length;
+
+      if (lastElementCount < 5) {
+        commentsCount = commentsCount - lastElementCount;
+        showComment (commentsCount);
+
+      }
+
+    }
+  } else {
+    showComment (commentsBlock.children.length);
+  }
+}
+
+
+export {renderComments, showComments};
