@@ -8,7 +8,6 @@ const commentTotalCount = document.querySelector('.social__comment-total-count')
 const renderComments = (commentsList) => {
   commentsBlock.replaceChildren();
   const commentsListFragment = document.createDocumentFragment();
-  let allCommentsCounter = 0;
 
   commentsList.forEach(({avatar, name, message}) => {
 
@@ -22,11 +21,10 @@ const renderComments = (commentsList) => {
     commentsElement.querySelector('.social__text').textContent = message;
 
     commentsListFragment.appendChild(commentsElement);
-    allCommentsCounter++;
   });
 
   commentsBlock.appendChild(commentsListFragment);
-  commentTotalCount.textContent = allCommentsCounter;
+  commentTotalCount.textContent = commentsBlock.children.length;
 
 };
 
@@ -41,22 +39,12 @@ const showComment = (commentCount) => {
 
 function showComments (commentsCount) {
 
-  if (commentsBlock.children.length >= 5) {
-    if (commentsCount < commentsBlock.children.length) {
-      showComment (commentsCount);
+  const difference = commentsBlock.children.length - commentsCount;
 
-    } else {
-      const lastElementCount = commentsCount - commentsBlock.children.length;
-
-      if (lastElementCount < 5) {
-        commentsCount = commentsCount - lastElementCount;
-        showComment (commentsCount);
-
-      }
-
-    }
-  } else {
+  if (difference + 5 <= 5) {
     showComment (commentsBlock.children.length);
+  } else {
+    showComment (commentsCount);
   }
 }
 
