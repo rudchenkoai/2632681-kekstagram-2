@@ -11,8 +11,6 @@ let commentsCount = 0;
 
 
 const showMoreComments = () => {
-  socialCommentsLoaderButton.classList.remove('hidden');
-  socialCommentsLoaderButton.addEventListener ('click', showMoreComments);
 
   const newCount = Math.min(commentsCount + COMMENTS_STEP, commentsBlock.children.length);
 
@@ -52,6 +50,10 @@ const renderComments = (commentsList) => {
   commentsBlock.appendChild(commentsListFragment);
   commentTotalCount.textContent = commentsList.length;
   commentShownCount.textContent = COMMENTS_STEP;
+
+  socialCommentsLoaderButton.classList.remove('hidden');
+  socialCommentsLoaderButton.addEventListener ('click', showMoreComments);
+
   showMoreComments();
 
 };
