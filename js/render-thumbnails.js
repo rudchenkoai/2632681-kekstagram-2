@@ -31,24 +31,3 @@ const renderThumbnails = (pictures) => {
 };
 
 export {renderThumbnails};
-
-/*
-const renderThumbnails = (pictures) => {
-  const fragment = document.createDocumentFragment();
-
-  pictures.forEach((picture) => {
-    const {url, description, likes, comments} = picture;
-    const pictureElement = pictureTemplate.cloneNode(true);
-    // заполняем данные
-
-    pictureElement.addEventListener('click', () => {
-      openFullSizePicture(picture); // передали данные
-    });
-
-    fragment.appendChild(picturesElement);
-  });
-
-  picturesBlock.appendChild(fragment);
-};
-
-*/

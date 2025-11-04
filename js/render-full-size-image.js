@@ -1,5 +1,4 @@
-
-import {renderComments} from './render-comments-list.js';
+import {renderComments, removeComments} from './render-comments-list.js';
 import {isEscapeKey} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
@@ -35,12 +34,14 @@ const renderFullSizePicture = (post) => {
   bigPictureCancelButton.addEventListener('click', () => {
     closeFullSizePicture();
   });
+
 };
 
 function closeFullSizePicture () {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  removeComments();
 }
 
 export {renderFullSizePicture};
