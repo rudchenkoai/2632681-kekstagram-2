@@ -2,16 +2,16 @@ const MAX_SYMBOLS = 140;
 
 let errorMessage = '';
 
-const errorDecription = () => errorMessage;
+const getDescriptionError = () => errorMessage;
 
-const checkDecription = (value) => {
+const checkDescription = (value) => {
   errorMessage = '';
 
   if (!value) {
     return true;
   }
 
-  const rulesDecription = [
+  const descriptionRules = [
     {
       check: value.length > MAX_SYMBOLS,
       error: 'Длина строки не может превышать 140 символов',
@@ -19,7 +19,7 @@ const checkDecription = (value) => {
 
   ];
 
-  return rulesDecription.every((rule) => {
+  return descriptionRules.every((rule) => {
     const isInvalid = rule.check;
     if (isInvalid) {
       errorMessage = rule.error;
@@ -30,4 +30,4 @@ const checkDecription = (value) => {
 };
 
 
-export {errorDecription, checkDecription};
+export {getDescriptionError, checkDescription};

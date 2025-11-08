@@ -3,59 +3,59 @@ const MAX_SYMBOLS = 20;
 
 let errorMessage = '';
 
-const errorHashtags = () => errorMessage;
+const getHashtagsError = () => errorMessage;
 
 const checkHashtags = (value) => {
   errorMessage = '';
 
-  const inputText = value.toLowerCase().trim();
+  const formattedValue = value.toLowerCase().trim();
 
-  if (!inputText) {
+  if (!formattedValue) {
     return true;
   }
 
-  const inputTextArray = inputText.split(/\s+/);
+  const hashtags = formattedValue.split(/\s+/);
 
-  const rulesHashtags = [
+  const hashtagRules = [
     {
-      check: inputTextArray.some((item) => item === '#'),
+      check: hashtags.some((item) => item === '#'),
       error: 'Хештег не может состоять только из одной решетки',
     },
 
     {
-      check: inputTextArray.some((item) => item.slice(1).includes('#')),
+      check: hashtags.some((item) => item.slice(1).includes('#')),
       error: 'Хештеги разделяются проблемами',
     },
 
 
     {
-      check: inputTextArray.some((item) => item[0] !== '#'),
+      check: hashtags.some((item) => item[0] !== '#'),
       error: 'Хештег должен начинаться с решетки',
     },
 
     {
-      check: inputTextArray.some((item, num, array) => array.includes(item, num + 1)),
+      check: hashtags.length !== new Set(hashtags).size,
       error: 'Хештеги не должны повторяться',
     },
 
     {
-      check: inputTextArray.some((item) => item.length > MAX_SYMBOLS),
+      check: hashtags.some((item) => item.length > MAX_SYMBOLS),
       error: 'Максимальная длина хештега 20 символов',
     },
 
     {
-      check: inputTextArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
+      check: hashtags.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
       error: 'Использованы недопустимые символы',
     },
 
     {
-      check: inputTextArray.length > MAX_HASHTAGS,
+      check: hashtags.length > MAX_HASHTAGS,
       error: 'Превышено допустимое число хештегов',
     },
 
   ];
 
-  return rulesHashtags.every((rule) => {
+  return hashtagRules.every((rule) => {
     const isInvalid = rule.check;
     if (isInvalid) {
       errorMessage = rule.error;
@@ -66,4 +66,4 @@ const checkHashtags = (value) => {
 };
 
 
-export {errorHashtags, checkHashtags};
+export {getHashtagsError, checkHashtags};
