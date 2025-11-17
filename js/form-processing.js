@@ -1,6 +1,8 @@
 import {isEscapeKey} from './util.js';
 import {getHashtagsError, checkHashtags} from './check-hashtags.js';
 import {getDescriptionError, checkDescription} from './check-description.js';
+import {scalingImage, exitScaling} from './scaling-image.js';
+import {onApplyEffect, resetFilter} from './apply-effect-image.js';
 
 const uploadForm = document.querySelector ('.img-upload__form');
 const pageBody = document.body;
@@ -46,6 +48,8 @@ const onOpenUploadModal = () => {
   cancelButton.addEventListener('click', onCancelButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadForm.addEventListener('submit', onFormSubmit);
+  uploadForm.addEventListener('change', onApplyEffect);
+  scalingImage();
 };
 
 
@@ -66,6 +70,8 @@ function closeUploadModal () {
   textDescription.textContent = '';
   uploadForm.reset();
   pristine.reset();
+  exitScaling();
+  resetFilter();
 }
 
 
