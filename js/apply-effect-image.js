@@ -40,7 +40,6 @@ noUiSlider.create(effectSlider, {
 
 effectSlider.noUiSlider.on('update', () => {
   effectLevelInput.value = effectSlider.noUiSlider.get();
- console.log (effectLevelInput.value);
   effectRadioBtns.forEach((item) => {
     if (item.checked){
       if (item.value !== 'none') {

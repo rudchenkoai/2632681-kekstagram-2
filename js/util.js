@@ -18,16 +18,4 @@ const generateId = createIdGenerator();
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const getEffectSelector = (currentInputId) => {
-  const selectors = {
-    'effect-none': 'effects__preview--none',
-    'effect-chrome': 'effects__preview--chrome',
-    'effect-sepia': 'effects__preview--sepia',
-    'effect-marvin': 'effects__preview--marvin',
-    'effect-phobos': 'effects__preview--phobos',
-    'effect-heat': 'effects__preview--heat',
-  };
-  return selectors [currentInputId];
-};
-
-export {getRandomPositiveInteger, getRandomArrayElement, generateId, isEscapeKey, getEffectSelector};
+export {getRandomPositiveInteger, getRandomArrayElement, generateId, isEscapeKey};
