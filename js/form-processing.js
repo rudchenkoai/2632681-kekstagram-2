@@ -1,8 +1,8 @@
 import {isEscapeKey} from './util.js';
 import {getHashtagsError, checkHashtags} from './check-hashtags.js';
 import {getDescriptionError, checkDescription} from './check-description.js';
-import {scalingImage, exitScaling} from './scaling-image.js';
-import {onApplyEffect, resetFilter} from './apply-effect-image.js';
+import {initializeScaling, resetScaling} from './scaling-image.js';
+import {onEffectChange, resetFilter} from './apply-effect-image.js';
 
 const uploadForm = document.querySelector ('.img-upload__form');
 const pageBody = document.body;
@@ -48,8 +48,8 @@ const onOpenUploadModal = () => {
   cancelButton.addEventListener('click', onCancelButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadForm.addEventListener('submit', onFormSubmit);
-  uploadForm.addEventListener('change', onApplyEffect);
-  scalingImage();
+  uploadForm.addEventListener('change', onEffectChange);
+  initializeScaling();
 };
 
 
@@ -65,12 +65,13 @@ function closeUploadModal () {
   document.removeEventListener('keydown', onDocumentKeydown);
   cancelButton.removeEventListener('click', onCancelButtonClick);
   uploadForm.removeEventListener('submit', onFormSubmit);
+  uploadForm.removeEventListener('change', onEffectChange);
   uploadFile.value = '';
   textHashtags.textContent = '';
   textDescription.textContent = '';
   uploadForm.reset();
   pristine.reset();
-  exitScaling();
+  resetScaling();
   resetFilter();
 }
 

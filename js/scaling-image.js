@@ -26,19 +26,19 @@ const onButtonMoreClick = () => {
 };
 
 
-const scalingImage = () => {
+const initializeScaling = () => {
   buttonSmaller.addEventListener('click', onButtonSmallerClick);
   buttonMore.addEventListener('click', onButtonMoreClick);
 };
 
-const exitScaling = () => {
+const resetScaling = () => {
   buttonSmaller.removeEventListener('click', onButtonSmallerClick);
   buttonMore.removeEventListener('click', onButtonMoreClick);
   scaleControlValue.value = `${SCALE_DEFAULT * 100}%`;
   imagePreview.style.transform = `scale(${SCALE_DEFAULT})`;
-  scale = 1;
+  scale = SCALE_DEFAULT;
 };
 
 
-export {scalingImage, exitScaling};
+export {initializeScaling, resetScaling};
 

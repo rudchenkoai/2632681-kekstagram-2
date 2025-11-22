@@ -1,24 +1,24 @@
-import {Effects, EFFECT_LEVEL_MAX, StyleFilterByEffects} from './const.js';
+import {Effects, styleFilterByEffects} from './const.js';
+
 
 const uploadForm = document.querySelector('body');
 const effectLevelInput = uploadForm.querySelector('.effect-level__value');
-effectLevelInput.value = EFFECT_LEVEL_MAX;
 const effectSlider = uploadForm.querySelector('.effect-level__slider');
 const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
 const photoPreview = uploadForm.querySelector('.img-upload__preview');
 const imgPreview = photoPreview.querySelector('img');
 
-const effectRadioBtns = uploadForm.querySelectorAll('.effects__radio');
+let currentRadioBtn = '';
 
-const getUpdateSliderOptions = (effect, sliderElement) => sliderElement.noUiSlider.updateOptions(Effects[effect]);
+const updateSliderOptions = (effect, sliderElement) => sliderElement.noUiSlider.updateOptions(Effects[effect]);
 
 
-const onApplyEffect = (evt) => {
-  const currentRadioBtn = evt.target.closest('.effects__radio');
+const onEffectChange = (evt) => {
+  currentRadioBtn = evt.target.closest('.effects__radio');
   if(currentRadioBtn) {
     const effectBtnValue = currentRadioBtn.value;
     imgPreview.classList.add(effectBtnValue);
-    getUpdateSliderOptions(effectBtnValue, effectSlider);
+    updateSliderOptions(effectBtnValue, effectSlider);
   }
 };
 
@@ -40,17 +40,15 @@ noUiSlider.create(effectSlider, {
 
 effectSlider.noUiSlider.on('update', () => {
   effectLevelInput.value = effectSlider.noUiSlider.get();
-  effectRadioBtns.forEach((item) => {
-    if (item.checked){
-      if (item.value !== 'none') {
-        sliderContainer.classList.remove('hidden');
-        imgPreview.style.filter = StyleFilterByEffects[item.value](effectLevelInput.value);
-      } else {
-        resetFilter();
-      }
+  if (currentRadioBtn.checked){
+    if (currentRadioBtn.value !== 'none') {
+      sliderContainer.classList.remove('hidden');
+      imgPreview.style.filter = styleFilterByEffects[currentRadioBtn.value](effectLevelInput.value);
+    } else {
+      resetFilter();
     }
-  });
+  }
 });
 
 
-export {onApplyEffect, resetFilter};
+export {onEffectChange, resetFilter};
