@@ -1,11 +1,14 @@
 import {isEscapeKey} from './util.js';
 import {getHashtagsError, checkHashtags} from './check-hashtags.js';
 import {getDescriptionError, checkDescription} from './check-description.js';
+import {initializeScaling, resetScaling} from './scaling-image.js';
+import {onEffectChange, resetEffect} from './apply-effect-image.js';
 
 const uploadForm = document.querySelector ('.img-upload__form');
 const pageBody = document.body;
 
 const uploadFile = uploadForm.querySelector ('#upload-file');
+const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
 const imgUploadOverlay = uploadForm.querySelector ('.img-upload__overlay');
 const cancelButton = imgUploadOverlay.querySelector ('.img-upload__cancel');
 
@@ -43,9 +46,12 @@ const onFormSubmit = (evt) => {
 const onOpenUploadModal = () => {
   imgUploadOverlay.classList.remove('hidden');
   pageBody.classList.add('modal-open');
+  sliderContainer.classList.add('hidden');
   cancelButton.addEventListener('click', onCancelButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   uploadForm.addEventListener('submit', onFormSubmit);
+  uploadForm.addEventListener('change', onEffectChange);
+  initializeScaling();
 };
 
 
@@ -61,11 +67,14 @@ function closeUploadModal () {
   document.removeEventListener('keydown', onDocumentKeydown);
   cancelButton.removeEventListener('click', onCancelButtonClick);
   uploadForm.removeEventListener('submit', onFormSubmit);
+  uploadForm.removeEventListener('change', onEffectChange);
   uploadFile.value = '';
   textHashtags.textContent = '';
   textDescription.textContent = '';
   uploadForm.reset();
   pristine.reset();
+  resetScaling();
+  resetEffect();
 }
 
 
