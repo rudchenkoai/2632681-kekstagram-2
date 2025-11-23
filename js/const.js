@@ -6,6 +6,7 @@ const Effects = {
     },
     start: 100,
     step: 1,
+    connect: 'lower',
   },
 
   chrome: {

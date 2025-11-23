@@ -22,21 +22,13 @@ const onEffectChange = (evt) => {
   }
 };
 
-const resetFilter = () => {
+const resetEffect = () => {
   imgPreview.style.removeProperty('filter');
   sliderContainer.classList.add('hidden');
   imgPreview.classList.add('effects__preview--none');
 };
 
-noUiSlider.create(effectSlider, {
-  range: {
-    min: 0,
-    max: 100,
-  },
-  start: 100,
-  step: 1,
-  connect: 'lower',
-});
+noUiSlider.create(effectSlider, Effects['none']);
 
 effectSlider.noUiSlider.on('update', () => {
   effectLevelInput.value = effectSlider.noUiSlider.get();
@@ -45,10 +37,10 @@ effectSlider.noUiSlider.on('update', () => {
       sliderContainer.classList.remove('hidden');
       imgPreview.style.filter = styleFilterByEffects[currentRadioBtn.value](effectLevelInput.value);
     } else {
-      resetFilter();
+      resetEffect();
     }
   }
 });
 
 
-export {onEffectChange, resetFilter};
+export {onEffectChange, resetEffect};
