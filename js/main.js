@@ -1,9 +1,20 @@
-import {createPosts} from './data.js';
 import {renderThumbnails} from './render-thumbnails.js';
 import './render-full-size-image.js';
 import {initUploadModal} from './form-processing.js';
+import {getData} from './api.js';
+import {renderMessageErrorGetData} from './show-message.js';
 
-const posts = createPosts();
-renderThumbnails(posts);
+initUploadModal();
+
+getData()
+  .then((image) => {
+    renderThumbnails(image);
+  }).catch(
+    () => {
+      renderMessageErrorGetData();
+    }
+  );
+
+
 initUploadModal();
 

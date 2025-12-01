@@ -16,6 +16,19 @@ function createIdGenerator () {
 }
 const generateId = createIdGenerator();
 
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomPositiveInteger, getRandomArrayElement, generateId, isEscapeKey};
+
+const findTemplate = (template) => {
+  const getTemplate = document.querySelector(template);
+
+  if (!getTemplate) {
+    throw new Error(`Template not found: ${template}`);
+  }
+
+  return getTemplate.content.firstElementChild;
+};
+
+
+export {getRandomPositiveInteger, getRandomArrayElement, generateId, isEscapeKey, findTemplate};

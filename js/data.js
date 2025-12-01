@@ -1,3 +1,5 @@
+//Модуль предназначен для генерации постов. Стал неипользуемым ввиду загрузки данных с сервера
+
 import {getRandomPositiveInteger, getRandomArrayElement, generateId} from './util.js';
 
 const MESSAGES = [

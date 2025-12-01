@@ -1,4 +1,4 @@
-const Effects = {
+const EFFECT_CONFIG = {
   none: {
     range: {
       min: 0,
@@ -68,4 +68,4 @@ const styleFilterByEffects = {
   heat: (value) => `brightness(${value})`,
 };
 
-export {Effects, styleFilterByEffects};
+export {EFFECT_CONFIG, styleFilterByEffects};

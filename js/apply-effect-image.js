@@ -1,4 +1,4 @@
-import {Effects, styleFilterByEffects} from './const.js';
+import {EFFECT_CONFIG, styleFilterByEffects} from './const.js';
 
 
 const uploadForm = document.querySelector('body');
@@ -10,7 +10,7 @@ const imgPreview = photoPreview.querySelector('img');
 
 let currentRadioBtn = '';
 
-const updateSliderOptions = (effect, sliderElement) => sliderElement.noUiSlider.updateOptions(Effects[effect]);
+const updateSliderOptions = (effect, sliderElement) => sliderElement.noUiSlider.updateOptions(EFFECT_CONFIG[effect]);
 
 
 const onEffectChange = (evt) => {
@@ -28,7 +28,10 @@ const resetEffect = () => {
   imgPreview.classList.add('effects__preview--none');
 };
 
-noUiSlider.create(effectSlider, Effects['none']);
+noUiSlider.create(effectSlider, {
+  ...EFFECT_CONFIG['none'],
+  connect: 'lower',
+});
 
 effectSlider.noUiSlider.on('update', () => {
   effectLevelInput.value = effectSlider.noUiSlider.get();
